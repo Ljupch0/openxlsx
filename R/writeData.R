@@ -342,7 +342,7 @@ writeData <- function(
   if ("Style" %in% class(headerStyle) & colNames) {
     addStyle(
       wb = wb, sheet = sheet, style = headerStyle,
-      rows = startRow,
+      rows = startRow:nrow(x)+1,
       cols = 0:(nCol - 1) + startCol,
       gridExpand = TRUE, stack = TRUE
     )
