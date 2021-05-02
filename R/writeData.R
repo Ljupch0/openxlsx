@@ -166,6 +166,7 @@ writeData <- function(
   colNames     = TRUE,
   rowNames     = FALSE,
   headerStyle  = openxlsx_getOp("headerStyle"),
+  bodyStyle    = NULL,
   borders      = openxlsx_getOp("borders", "none"),
   borderColour = openxlsx_getOp("borderColour", "black"),
   borderStyle  = openxlsx_getOp("borderStyle", "thin"),
@@ -342,7 +343,17 @@ writeData <- function(
   if ("Style" %in% class(headerStyle) & colNames) {
     addStyle(
       wb = wb, sheet = sheet, style = headerStyle,
-      rows = startRow:startRow+nrow(x)+1,
+      rows = startRow,
+      cols = 0:(nCol - 1) + startCol,
+      gridExpand = TRUE, stack = TRUE
+    )
+  }
+  
+  ## body style
+  if ("Style" %in% class(bodyStyle)) {
+    addStyle(
+      wb = wb, sheet = sheet, style = bodyStyle,
+      rows = 1:nRow + startRow,
       cols = 0:(nCol - 1) + startCol,
       gridExpand = TRUE, stack = TRUE
     )
